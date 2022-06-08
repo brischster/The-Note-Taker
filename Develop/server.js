@@ -26,6 +26,16 @@ app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
 
+// app.get("/api/notes", (req, res) => {
+//   fs.readFile("./db/db.json", "utf8", (err, data) => {
+//     if (err) {
+//       console.error(err);
+//     } else {
+//       res.status(200).json(JSON.parse(data));
+//     }
+//   });
+// });
+
 //Wildcard route create if I have time
 // app.get('*', (req, res) =>
 // res.sendFiles(path.join(__dirname, 'public/pages/404.html')));
