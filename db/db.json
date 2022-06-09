@@ -1,42 +1,17 @@
 [
     {
-        "title": "Test Title",
-        "text": "Test text",
-        "id": "unique number"
+        "title": "Note to delete",
+        "text": "I will delete you later",
+        "noteId": "c1f4"
     },
     {
-        "title": "Test Title",
-        "text": "Test text",
-        "id": "unique number"
+        "title": "Maybe Ill keep you",
+        "text": "No Ill delete you later too",
+        "noteId": "d258"
     },
     {
-        "title": "note",
-        "text": "add me please",
-        "noteId": "1cef"
-    },
-    {
-        "title": "pretty please",
-        "text": "please",
-        "noteId": "520f"
-    },
-    {
-        "title": "i hate you",
-        "text": "work",
-        "noteId": "6478"
-    },
-    {
-        "title": "why three times",
-        "text": "cannot be good",
-        "noteId": "2a06"
-    },
-    {
-        "title": "fuck off",
-        "text": "fuck",
-        "noteId": "a43b"
-    },
-    {
-        "title": "will you work",
-        "text": "work",
-        "noteId": "842f"
+        "title": "Def keep you",
+        "text": "Nope delete you too",
+        "noteId": "6da7"
     }
 ]

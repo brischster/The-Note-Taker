@@ -1,14 +1,12 @@
 const notes = require("express").Router();
 const path = require("path");
 const uuid = require("../helpers/uuid");
-// const notesDatabase = require("../db/db.json");
 const fs = require("fs");
-const { readAndAppend } = require("../helpers/fsUtils");
-
-// notes.get("/", (req, res) => {
-//   console.info(`${req.method} request received for notes`);
-//   res.status(200).json(notesDatabase);
-// });
+const {
+  readAndAppend,
+  readFromFile,
+  writeToFile,
+} = require("../helpers/fsUtils");
 
 notes.get("/", (req, res) => {
   fs.readFile("./db/db.json", "utf8", (err, data) => {
@@ -18,6 +16,32 @@ notes.get("/", (req, res) => {
       res.status(200).json(JSON.parse(data));
     }
   });
+});
+
+notes.get("/:noteId", (req, res) => {
+  const noteToDelete = req.params.noteId;
+  readFromFile("./db/db.json")
+    .then((data) => JSON.parse(data))
+    .then((json) => {
+      const result = json.filter((note) => note.noteId === noteToDelete);
+      console.log(result);
+      return result.length > 0
+        ? res.json(result)
+        : res.json("No note with that ID");
+    });
+});
+
+notes.delete("/:noteId", (req, res) => {
+  const noteToDelete = req.params.noteId;
+  readFromFile("./db/db.json")
+    .then((data) => JSON.parse(data))
+    .then((json) => {
+      const result = json.filter((note) => note.noteId !== noteToDelete);
+
+      writeToFile("./db/db.json", result);
+
+      res.json(`Item ${noteToDelete} has been deleted`);
+    });
 });
 
 notes.post("/", (req, res) => {
@@ -33,39 +57,11 @@ notes.post("/", (req, res) => {
     };
 
     readAndAppend(newNote, "./db/db.json");
-    res.json(`Tip added successfully`);
+    res.json(`Note added successfully`);
   } else {
-    res.error("Error in adding tip");
+    res.error("Error in adding note");
   }
 });
-
-//     fs.readFile("./db/db.json", "utf8", (err, data) => {
-//       if (err) {
-//         console.error(err);
-//       } else {
-//         const parsedNotes = JSON.parse(data);
-
-//         parsedNotes.push(newNote);
-
-//         //Write updated note back to the file
-//         fs.writeFile("./db/db.json", JSON.stringify(parsedNotes), (writeErr) =>
-//           writeErr
-//             ? console.error(writeErr)
-//             : console.info("Successfully updated notes!")
-//         );
-//       }
-//     });
-
-//     const response = {
-//       status: "success",
-//       body: newNote,
-//     };
-//     console.log(response);
-//     res.status(201).json(response);
-//   } else {
-//     res.status(500).json("Error in posting note");
-//   }
-// });
 
 module.exports = notes;
 // //./public/notes.html
